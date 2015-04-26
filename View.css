@@ -1,0 +1,197 @@
+[name = uno] {
+    position: relative;
+    left: 10%;
+    top: 20%;
+}
+
+[name = dos] {
+    position: relative;
+    left: 13%;
+    top: 20%;
+
+}
+
+[name = tres] {
+    position: relative;
+    left: 16%;
+    top: 20%;
+
+}
+
+[name = cuatro] {
+    position: relative;
+    left: 19%;
+    top: 20%;
+
+}
+
+[name = cinco] {
+    position: relative;
+    left: 21%;
+    top: 20%;
+
+}
+
+[name = seis] {
+    position: relative;
+    left: 24%;
+    top: 20%;
+
+}
+
+[name = siete] {
+    position: relative;
+    left: 27%;
+    top: 20%;
+
+}
+
+.row {
+    position: relative;
+    height: 13%;
+    width: 100%;
+    top: 1.5%;
+}
+
+.imagen {
+    border: none;
+    border-radius: 100%;
+    background: transparent url("circle_normal.png") no-repeat 50%;
+    padding: 0;
+    height: 100%;
+    width: 9%;
+
+}
+
+.imagen:hover {
+    background-image: url("circle_hover.png");
+    cursor: hand;
+}
+
+.imagen:focus {
+    background-image: url("circle_click.png");
+    outline: none;
+}
+
+.hueco {
+    top: 8%;
+    border-radius: 100%;
+    padding: 0;
+    height: 80%;
+    width: 9%;
+    border: groove 5px #000000;
+    outline: none;
+    background: #31c5ff;
+    opacity: 0.3;
+    cursor: hand;
+
+}
+
+.vacio {
+    border-radius: 100%;
+    padding: 0;
+    background-color: transparent;
+    border: transparent;
+    height: 0%;
+    width: 9%;
+    outline: none;
+}
+
+.clock{
+    width: 25px;
+}
+
+#board {
+    position: absolute;
+    top: 10%;
+    left:20%;
+    height: 80%;
+    width: 55%;
+    border: none;
+    overflow: hidden;
+
+}
+
+#up {
+    background-color: lightyellow;
+    border-radius: 15% 15% 0% 0%;
+    position: inherit;
+    left: 32%;
+    top: 3%;
+    height: 29%;
+    width: 38%;
+}
+
+#left {
+    background-color: lightyellow;
+    border-radius: 15% 0% 0% 15%;
+    position: inherit;
+    top: 30%;
+    left: 9.5%;
+    height: 39%;
+    width: 23%;
+
+}
+
+#center {
+    position: absolute;
+    left: 32%;
+    top: 30%;
+    width: 39%;
+    height: 39%;
+    background-color: lightyellow;
+}
+
+#right {
+    background-color: lightyellow;
+    border-radius: 0% 15% 15% 0%;
+    position: absolute;
+    left: 70%;
+    top: 30%;
+    height: 39%;
+    width: 23%;
+}
+
+#down {
+    background-color: lightyellow;
+    border-radius: 0% 0% 15% 15%;
+    position: inherit;
+    left: 32%;
+    top: 67%;
+    height: 29%;
+    width: 38%;
+
+}
+
+#debugdiv {
+
+    position: absolute;
+    width: 150px;
+    height: 85%;
+    border: solid white;
+    overflow: scroll;
+}
+
+#scorebox {
+
+    position: absolute;
+    left: 950px;
+    top: 150px;
+    width: 300px;
+    height: 550px;
+    border: none;
+    overflow: visible;
+}
+
+#score {
+    text-align: center;
+    color: black;
+    font-size: 50pt;
+}
+
+body {
+    background-color: #31c5ff;
+    opacity: 0.8;
+}
+
+
