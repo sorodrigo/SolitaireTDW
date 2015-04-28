@@ -1,52 +1,52 @@
 [name = uno] {
     position: relative;
-    left: 10%;
-    top: 20%;
+    left: 10px;
+    top: 15px;
 }
 
 [name = dos] {
     position: relative;
-    left: 13%;
-    top: 20%;
+    left: 20px;
+    top: 15px;
 
 }
 
 [name = tres] {
     position: relative;
-    left: 16%;
-    top: 20%;
+    left: 35px;
+    top: 15px;
 
 }
 
 [name = cuatro] {
     position: relative;
-    left: 19%;
-    top: 20%;
+    left: 47px;
+    top: 15px;
 
 }
 
 [name = cinco] {
     position: relative;
-    left: 21%;
-    top: 20%;
+    left: 60px;
+    top: 15px;
 
 }
 
 [name = seis] {
     position: relative;
-    left: 24%;
-    top: 20%;
+    left: 75px;
+    top: 15px;
 
 }
 
 [name = siete] {
     position: relative;
-    left: 27%;
-    top: 20%;
+    left: 90px;
+    top: 15px;
 
 }
 
-.row {
+.rows {
     position: relative;
     height: 13%;
     width: 100%;
@@ -58,8 +58,8 @@
     border-radius: 100%;
     background: transparent url("circle_normal.png") no-repeat 50%;
     padding: 0;
-    height: 100%;
-    width: 9%;
+    height: 55px;
+    width: 55px;
 
 }
 
@@ -74,11 +74,10 @@
 }
 
 .hueco {
-    top: 8%;
     border-radius: 100%;
     padding: 0;
-    height: 80%;
-    width: 9%;
+    height: 55px;
+    width: 55px;
     border: groove 5px #000000;
     outline: none;
     background: #31c5ff;
@@ -92,8 +91,8 @@
     padding: 0;
     background-color: transparent;
     border: transparent;
-    height: 0%;
-    width: 9%;
+    height: 55px;
+    width: 55px;
     outline: none;
 }
 
@@ -103,12 +102,12 @@
 
 #board {
     position: absolute;
-    top: 10%;
-    left:20%;
-    height: 80%;
-    width: 55%;
+    left: 450px;
+    top: 150px;
+    height: 478px;
+    width: 478px;
     border: none;
-    overflow: hidden;
+    overflow: visible;
 
 }
 
@@ -116,77 +115,113 @@
     background-color: lightyellow;
     border-radius: 15% 15% 0% 0%;
     position: inherit;
-    left: 32%;
-    top: 3%;
-    height: 29%;
-    width: 38%;
+    left: 136px;
+    top: 0px;
+    height: 136px;
+    width: 206px;
 }
 
 #left {
     background-color: lightyellow;
     border-radius: 15% 0% 0% 15%;
     position: inherit;
-    top: 30%;
-    left: 9.5%;
-    height: 39%;
-    width: 23%;
+    top: 136px;
+    left: 0px;
+    height: 206px;
+    width: 136px;
 
 }
 
 #center {
-    position: absolute;
-    left: 32%;
-    top: 30%;
-    width: 39%;
-    height: 39%;
+    position: inherit;
+    left: 136px;
+    top: 136px;
+    width: 206px;
+    height: 206px;
     background-color: lightyellow;
 }
 
 #right {
     background-color: lightyellow;
     border-radius: 0% 15% 15% 0%;
-    position: absolute;
-    left: 70%;
-    top: 30%;
-    height: 39%;
-    width: 23%;
+    position: inherit;
+    left: 342px;
+    top: 136px;
+    height: 206px;
+    width: 136px;
 }
 
 #down {
     background-color: lightyellow;
     border-radius: 0% 0% 15% 15%;
     position: inherit;
-    left: 32%;
-    top: 67%;
-    height: 29%;
-    width: 38%;
+    left: 136px;
+    top: 342px;
+    height: 136px;
+    width: 206px;
 
 }
 
 #debugdiv {
 
     position: absolute;
+    left: 770px;
     width: 150px;
     height: 85%;
     border: solid white;
     overflow: scroll;
 }
 
-#scorebox {
-
+#dashboard {
     position: absolute;
-    left: 950px;
-    top: 150px;
-    width: 300px;
-    height: 550px;
+    left: 10px;
+    top: 250px;
+    width: 380px;
+    height: 300px;
     border: none;
     overflow: visible;
+    background: #feff8a;
 }
 
-#score {
+#countdown{
+    position: relative;
+    width: 150px;
+    left: 100px;
     text-align: center;
-    color: black;
-    font-size: 50pt;
+    color: darkblue;
+}
+#gameVariant{
+    position: relative;
+    left: 10px;
+    width: 150px;
+}
+#timer{
+    position: relative;
+    width: 200px;
+    left: 10px;
+}
+.scoregreen {
+    text-align: center;
+    color: #25e72f;
+    font-size: 40pt;
+}
+
+.scorered {
+    text-align: center;
+    color: red;
+    font-size: 40pt;
+}
+
+#end{
+    position: absolute;
+    top: 186px;
+    left: 40px;
+    height: 100px;
+    width: 400px;
+    background: white;
+    opacity: 0.7;
+    color: #783bff;
+    text-align: center;
 }
 
 body {

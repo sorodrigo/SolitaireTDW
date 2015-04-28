@@ -4,7 +4,6 @@
 
 function Game(custom) {
     this.custom = custom;
-    this.score = 0;
     this.gameboards = {
         "row1": new Gameboard("row1")
         , "row2": new Gameboard("row2")
@@ -16,22 +15,50 @@ function Game(custom) {
     };
     this.previous = null;
     this.current = null;
-    this.timer = 0;
+    this.timer = -1;
     this.time = true;
+    this.score = -1;
 }
 
 Game.prototype.newGame = function () {
 
-
+    this.score = 0;
     for (k in this.gameboards) {
 
         this.defineCircles(k);
         this.addButtons(k);
     }
 
-    this.gameboards["row4"].posiciones[3].tipo = "hueco";
+    for (i in variants = document.getElementsByName("variant"))
+    {
+        if (variants[i].checked)
+        {
+            if(variants[i].value == "central")
+            {
+                this.gameboards["row4"].posiciones[3].tipo = "hueco";
+            }
+            else if(variants[i].value == "random")
+            {
 
+                var random = this.gameboards["row1"].posiciones[0];
+                while(random.tipo != "imagen") {
+                    var num1 = 0;
+                    var num2 = -1;
+                    while (num1 < 1 || num1 > 7) {
+                        num1 = Math.floor((Math.random() * 10));
+                    }
 
+                    while (num2 < 0 || num2 > 6) {
+                        num2 = Math.floor((Math.random() * 10));
+                    }
+                    var random = this.gameboards["row" + num1].posiciones[num2]
+                }
+                random.tipo = "hueco";
+            }
+        }
+    }
+
+    timer();
     this.displayGame();
 
 }
@@ -59,7 +86,7 @@ Game.prototype.addButtons = function (k) {
     var gb = document.createElement("div");
     var pos = this.gameboards[k].posiciones;
     gb.setAttribute("id", k);
-    gb.setAttribute("class", "row");
+    gb.setAttribute("class", "rows");
     document.getElementById("board").appendChild(gb);
 
     for (i = 0; i < pos.length; i++) {
@@ -103,12 +130,78 @@ Game.prototype.displayGame = function () {
         }
     }
 
-    document.getElementById("score").innerHTML = this.score;
-
     if (!this.movesRemaining() && this.custom == false) {
 
-        alert("not more moves :-{");
+        if (this.getButtonsLeft() != 1) {
+
+            try {
+                var del = document.getElementById("end")
+                del.parentNode.removeChild(del);
+            }
+            catch (e) {
+                var end = document.createElement("div");
+                end.setAttribute("id", "end");
+                var endLabel = document.createElement("h1");
+                endLabel.setAttribute("id", "endLabel");
+                document.getElementById("board").appendChild(end);
+                document.getElementById("end").appendChild(endLabel);
+                document.getElementById("endLabel").innerHTML = "Game Over! No more moves.";
+
+            }
+
+            this.score = this.score - (parseInt(this.getButtonsLeft()) * 50);
+
+        }
+        else {
+
+            try {
+                var del = document.getElementById("end")
+                del.parentNode.removeChild(del);
+            }
+            catch (e) {
+                var end = document.createElement("div");
+                end.setAttribute("id", "end");
+                var endLabel = document.createElement("h1");
+                endLabel.setAttribute("id", "endLabel");
+                document.getElementById("board").appendChild(end);
+                document.getElementById("end").appendChild(endLabel);
+                document.getElementById("endLabel").innerHTML = "Congratulations! You have won.";
+            }
+
+            if (this.gameboards["row4"].posiciones[3].tipo = "imagen") {
+                this.score += 150;
+            }
+
+
+        }
     }
+
+    if (!this.time) {
+        try {
+            var del = document.getElementById("end")
+            del.parentNode.removeChild(del);
+        }
+        catch (e) {
+            var end = document.createElement("div");
+            end.setAttribute("id", "end");
+            var endLabel = document.createElement("h1");
+            endLabel.setAttribute("id", "endLabel");
+            document.getElementById("board").appendChild(end);
+            document.getElementById("end").appendChild(endLabel);
+            document.getElementById("endLabel").innerHTML = "Game Over! No more time.";
+        }
+
+        this.score = this.score - (parseInt(this.getButtonsLeft()) * 50);
+
+    }
+
+    if (this.score >= 0) {
+        document.getElementById("score").setAttribute("class", "scoregreen");
+    }
+    else {
+        document.getElementById("score").setAttribute("class", "scorered");
+    }
+    document.getElementById("score").innerHTML = "Score: " + this.score;
 
 }
 
@@ -196,35 +289,92 @@ Game.prototype.getMiddle = function (pre, cur) {
 
 Game.prototype.move = function () {
 
+    if (this.time && this.movesRemaining()) {
+        middlePos = this.getMiddle(this.previous, this.current);
 
-    middlePos = this.getMiddle(this.previous, this.current);
+        var middle = this.getCircleById("b" + middlePos);
+        if (middle.tipo == "imagen") {
+            this.current.tipo = "imagen";
+            this.previous.tipo = "hueco";
+            middle.tipo = "hueco";
+            this.score += 15;
 
-    var middle = this.getCircleById("b" + middlePos);
-    if (middle.tipo == "imagen") {
-        this.current.tipo = "imagen";
-        this.previous.tipo = "hueco";
-        middle.tipo = "hueco";
-        this.score += 15;
-        document.getElementById("debug").innerHTML += game.previous.idCi + "->" + game.current.idCi + "<br>";
+        }
 
-
+        this.displayGame();
     }
-
-    this.displayGame();
 
 }
 
 Game.prototype.customGame = function () {
-    this.custom = !this.custom;
-    if (this.custom) {
-        for (k in this.gameboards) {
-            this.defineCircles(k);
-        }
-        this.score = 0;
-        this.current = null;
-        this.previous = null;
+    this.custom = true
+    for (k in this.gameboards) {
+        this.defineCircles(k);
     }
-    this.displayGame();
+    this.score = 0;
+    this.current = null;
+    this.previous = null;
+    this.time = true;
+    this.timer = -1;
+    try {
+        var end = document.getElementById("end")
+        end.parentNode.removeChild(end);
+    }
+
+    finally {
+        this.displayGame();
+    }
+
+}
+
+Game.prototype.unsetCustom = function () {
+    if (this.custom) {
+        this.custom = false;
+        try {
+            var end = document.getElementById("end")
+            end.parentNode.removeChild(end);
+        }
+
+        finally {
+            timer();
+            this.displayGame();
+        }
+    }
+
+    else {
+
+        var restart = confirm("Are you sure you want to start over? All your progress will be lost.");
+
+        if (restart == true) {
+
+            this.restart();
+        }
+
+    }
+}
+
+Game.prototype.restart = function () {
+
+
+    for (k in gb = this.gameboards) {
+        gb[k].posiciones = Array(7);
+        var child = document.getElementById(k);
+        document.getElementById("board").removeChild(child);
+    }
+
+    this.previous = null;
+    this.current = null;
+    this.timer = -1;
+    this.time = true;
+    this.score = -1;
+
+    try {
+        var end = document.getElementById("end")
+        end.parentNode.removeChild(end);
+    }
+    finally {
+        this.newGame(false);
+    }
 }
 
 Game.prototype.place = function () {
@@ -265,7 +415,6 @@ Game.prototype.setTimer = function () {
 
 Game.prototype.updateTimer = function () {
 
-
     this.timer--;
     var Seconds = this.timer;
 
@@ -277,13 +426,33 @@ Game.prototype.updateTimer = function () {
 
     var TimeStr = numReloj(Hours) + ":" + numReloj(Minutes) + ":" + numReloj(Seconds);
 
-    document.getElementById("debug").innerHTML = TimeStr;
+    if (TimeStr != "0-1:59:59")
+    {
+        document.getElementById("ctdown").innerHTML = TimeStr;
+    }
+    else
+    {
+        document.getElementById("ctdown").innerHTML = "00:00:00";
+    }
 
 
 }
 
 function numReloj(t) {
 
-    return (t < 10) ? "0" + t :  t;
+    return (t < 10) ? "0" + t : t;
 
+}
+
+Game.prototype.getButtonsLeft = function () {
+
+    var contador = 0;
+    for (k in gb = this.gameboards) {
+        for (i in pos = gb[k].posiciones) {
+            if (pos[i].tipo == "imagen") {
+                contador++;
+            }
+        }
+    }
+    return contador;
 }
